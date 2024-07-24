@@ -2,16 +2,31 @@
 import re
 from colorama import Fore
 import requests
-#import beautifulsoup4
 import os
 from dotenv import load_dotenv
 # Cargar variables de entorno desde un archivo .env
-load_dotenv()
+load_dotenv()   
 
 #se crea la variable que contiene el valor de la URL a usar en el web scripting
-website = os.getenv(url)
-result = requests.get(website)
-content = result.text
+website = os.getenv('url')
+#print(website)
+if website:
+    result = requests.get(website)
+
+    if result.status_code == 200:
+        content = result.text
 #esto visualiza los datos de la peticiòn HTTP
-print(content) 
-#obtener el nombre de cada maquina despues del entry, lo busque al inspeccionar la pagina y lo guarda en la variable patron
+#print(content) 
+#obtener frase
+        pattern = r'<span class="text" itemprop="text">(.*?)</span>'
+        matches = re.findall(pattern,content, re.DOTALL)
+        
+        if matches:
+            for phrase in matches:
+                print("Frase extraída:", phrase.strip())
+        else:
+            print("No se encontraron citas en la página.")
+    else:
+        print("Error al realizar la solicitud:", result.status_code)
+else:
+    print("La variable de entorno 'url' no está definida.")
