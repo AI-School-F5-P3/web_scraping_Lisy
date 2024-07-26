@@ -1,29 +1,28 @@
-#se importan las librerias a usar
-import re
-from colorama import Fore
+from colorama import Fore 
 import requests
 import os
 from dotenv import load_dotenv
-# Cargar variables de entorno desde un archivo .env
-load_dotenv()   
+from bs4 import BeautifulSoup
 
-#se crea la variable que contiene el valor de la URL a usar en el web scripting
+# Cargar variables de entorno desde un archivo .env
+load_dotenv()
+
+# Se crea la variable que contiene el valor de la URL a usar en el web scraping
 website = os.getenv('url')
-#print(website)
+
+#A partir de un condicional se hacen las peticiones a la website
 if website:
     result = requests.get(website)
-
     if result.status_code == 200:
         content = result.text
-#esto visualiza los datos de la peticiòn HTTP
-#print(content) 
-#obtener frase
-        pattern = r'<span class="text" itemprop="text">(.*?)</span>'
-        matches = re.findall(pattern,content, re.DOTALL)
-        
-        if matches:
-            for phrase in matches:
-                print("Frase extraída:", phrase.strip())
+        soup = BeautifulSoup(content, 'html.parser')
+        spans = soup.find_all('span', class_='text', itemprop='text')
+
+        if spans:
+            yellow = Fore. YELLOW
+            for span in spans:
+                phrase = span.get_text(strip=True)
+                print(yellow + "Frase extraída: ", phrase)
         else:
             print("No se encontraron citas en la página.")
     else:
