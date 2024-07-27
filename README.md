@@ -6,9 +6,8 @@ Este proyecto es un script de Python que realiza web scraping en el sitio web [Q
 
 - [Instalación](#instalación)
 - [Uso](#uso)
-- [Estructura de la Base de Datos](#estructura-de-la-base-de-datos)
 - [Contribución](#contribución)
-- [Licencia](#licencia)
+
 
 ## Instalación 🛠️
 
