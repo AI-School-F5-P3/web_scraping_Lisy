@@ -31,3 +31,12 @@ CREATE TABLE IF NOT EXISTS quote_tags (
     FOREIGN KEY (tag_id) REFERENCES tags(id),
     PRIMARY KEY (quote_id, tag_id)
 );
+
+CREATE TABLE IF NOT EXISTS logs (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    timestamp DATETIME NOT NULL,
+    level VARCHAR(50) NOT NULL,
+    message TEXT NOT NULL,
+    UNIQUE KEY unique_message (message(255)) -- Especifica la longitud del índice
+);
+
