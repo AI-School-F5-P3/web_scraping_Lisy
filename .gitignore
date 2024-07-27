@@ -6,3 +6,4 @@ ENV/
 .ENV/
 mypythonenv/
 anotherenv/
+.env

@@ -1,0 +1,33 @@
+-- Crear la base de datos 'spider'
+CREATE DATABASE IF NOT EXISTS spider;
+USE spider;
+
+-- Crear la tabla 'authors'
+CREATE TABLE IF NOT EXISTS authors (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    about_url VARCHAR(255)
+);
+
+-- Crear la tabla 'quotes'
+CREATE TABLE IF NOT EXISTS quotes (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    quote TEXT NOT NULL,
+    author_id INT,
+    FOREIGN KEY (author_id) REFERENCES authors(id)
+);
+
+-- Crear la tabla 'tags'
+CREATE TABLE IF NOT EXISTS tags (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
+);
+
+-- Crear la tabla 'quote_tags'
+CREATE TABLE IF NOT EXISTS quote_tags (
+    quote_id INT,
+    tag_id INT,
+    FOREIGN KEY (quote_id) REFERENCES quotes(id),
+    FOREIGN KEY (tag_id) REFERENCES tags(id),
+    PRIMARY KEY (quote_id, tag_id)
+);
