@@ -7,3 +7,5 @@ ENV/
 mypythonenv/
 anotherenv/
 .env
+.ENV
+.gitignore
